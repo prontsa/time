@@ -1,0 +1,28 @@
+{
+  "name": "TimeMate",
+  "short_name": "TimeMate",
+  "description": "Effortless world clock tracking and customizable home screen widgets for global connection.",
+  "version": "1.0.0",
+  "author": "TimeMate Team",
+  "theme_color": "#4f46e5",
+  "background_color": "#020617",
+  "display": "standalone",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ],
+  "android": {
+    "package_name": "com.timemate.app",
+    "permissions": [
+      "INTERNET",
+      "ACCESS_FINE_LOCATION"
+    ]
+  },
+  "ios": {
+    "bundle_id": "com.timemate.app",
+    "capabilities": [
+      "Location",
+      "Background Fetch"
+    ]
+  }
+}
