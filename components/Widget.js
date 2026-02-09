@@ -39,20 +39,29 @@ const Widget = ({ widget, onDelete, onToggleFavorite, onEdit, isDraggable }) => 
     [WidgetSize.WIDE]: 'col-span-2 h-32 sm:h-40',
   };
 
-  const bgStyle = widget.style.backgroundImage 
+  const bgImageStyle = widget.style.backgroundImage 
     ? { 
         backgroundImage: `url(${widget.style.backgroundImage})`, 
         backgroundSize: `${widget.style.bgScale || 100}%`, 
         backgroundPosition: `${widget.style.bgPosX || 50}% ${widget.style.bgPosY || 50}%`,
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        opacity: (widget.style.imageOpacity ?? 100) / 100
       }
     : {};
 
   return React.createElement('div', {
     className: `relative group rounded-3xl p-4 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-xl overflow-hidden ${widget.style.backgroundColor} ${widget.style.textColor} ${isDraggable ? 'w-full h-32 sm:h-40' : sizeClasses[widget.size]} ${widget.style.borderWidth ? 'border' : ''}`,
-    style: { ...bgStyle, borderColor: 'rgba(255,255,255,0.1)' }
+    style: { borderColor: 'rgba(255,255,255,0.1)' }
   }, [
-    widget.style.backgroundImage && React.createElement('div', { key: 'overlay', className: "absolute inset-0 bg-black/30 pointer-events-none" }),
+    widget.style.backgroundImage && React.createElement('div', { 
+      key: 'bg-image', 
+      className: "absolute inset-0 pointer-events-none",
+      style: bgImageStyle
+    }),
+    widget.style.backgroundImage && React.createElement('div', { 
+      key: 'overlay', 
+      className: "absolute inset-0 bg-black/20 pointer-events-none" 
+    }),
     isDraggable && React.createElement('div', { key: 'drag', className: "absolute left-2 top-1/2 -translate-y-1/2 opacity-30 group-hover:opacity-100 transition-opacity z-20" }, React.createElement(GripVertical, { size: 20 })),
     React.createElement('div', { key: 'top', className: `flex justify-between items-start z-10 ${isDraggable ? 'pl-6' : ''}` }, [
       React.createElement('div', { key: 'info' }, [
